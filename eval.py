@@ -88,8 +88,8 @@ for k in range(testEpisodeCount):
     rewardListRL.append(rewardRL/env.countStepsMax)
 
 print('Average reward (RL) = ',np.mean(rewardListRL))
-# print('List of rewards stored at: ',basePath)
-# np.savetxt(basePath+'outRewardSP.txt',rewardListSP,delimiter=',')
+print('List of rewards stored at: ',basePath)
+np.savetxt(basePath+'outRewardSP.txt',rewardListSP,delimiter=',')
 
 
 

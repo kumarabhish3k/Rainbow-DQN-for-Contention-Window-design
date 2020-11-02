@@ -1,7 +1,6 @@
 # Adaptive Contention Window Design using Deep Q-learning
 
-This repository is the official implementation of **``Adaptive Contention Window Design using Deep Q-learning"**
-]. 
+This repository is the official implementation of **"Adaptive Contention Window Design using Deep Q-learning"**. 
 
 ## Requirements
 

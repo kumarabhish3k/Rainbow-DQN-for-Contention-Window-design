@@ -21,13 +21,17 @@ To train the model(s) in the paper, run this command:
 python trainRL.py  --n 10 --ps 1 --transitionModel Markovian --history 0
 ```
 
-n: wireless network size;{5,10,20} 
-ps: transition probability of stochastic process;{0.75,0.9,1}
-transitionModel: stochastic model followed by other nodes; {'Markovian','NonMarkovian'} (Here 'NonMarkovian' corresponds to the 'complex' process in the paper.) 
-history: number of previous time steps from which observations are used as input
+n: wireless network size; {5,10,20} 
+
+ps: transition probability of stochastic process; {0.75,0.9,1}
+
+transitionModel: stochastic model followed by other nodes; {'Markovian', 'NonMarkovian'} (Here 'NonMarkovian' corresponds to the 'complex' process in the paper.)
+
+history: number of previous time steps from which observations are used as input; {0,1,2,3}
+
 ## Evaluation
 
-To evaluate my model, run:
+To evaluate the model, run:
 
 ```eval
 python eval.py --n 10 --ps 1 --transitionModel Markovian --history 0

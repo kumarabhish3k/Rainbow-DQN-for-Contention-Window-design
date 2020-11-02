@@ -21,10 +21,10 @@ import argparse
 from pathlib import Path
 
 parser = argparse.ArgumentParser()
-parser.add_argument("n", type=np.int32, help="Number of nodes")
-parser.add_argument("ps", type=np.float32, help="Transition Probability")
-parser.add_argument("transitionModel", type=str, help="Transition Model")
-parser.add_argument("history", type=np.int32, help="History Level")
+parser.add_argument("--n", type=np.int32, help="Number of nodes")
+parser.add_argument("--ps", type=np.float32, help="Transition Probability")
+parser.add_argument("--transitionModel", type=str, help="Transition Model")
+parser.add_argument("--history", type=np.int32, help="History Level")
 args = parser.parse_args()
 
 n = args.n

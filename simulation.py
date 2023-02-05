@@ -3,7 +3,7 @@ import os
 import random
 from math import *
 from gen_dataset import *
-# from envBuilder import *
+#from envBuilder import *
 
 class commEnv:
     def __init__(self,n,ps,transitionModel,action_dict,other_action_dict,eplen,history=0):
@@ -23,9 +23,13 @@ class commEnv:
         self.actionDict = action_dict
         self.otherActionDict = other_action_dict
 
+        # each entry in the dataset is of 4 values [node1RxPackets[k],otherRxPackets[k],cw1List[i],reward[k]]
         self.dimState = 3
+        #?
         self.numTestMethod = 4
+        #?
         self.dict = genDataset(n)
+
         baseFolder = './Dataset/dataStats/'+str(n)+'Node/'
         self.data_mean = np.loadtxt(baseFolder+'data_mean.txt',delimiter = ',')
         self.data_std = np.loadtxt(baseFolder+'data_std.txt',delimiter = ',')
@@ -33,21 +37,19 @@ class commEnv:
         self.countSteps = 0
         self.otherActionIndex = random.choice(list(self.otherActionDict.keys()))
         self.incrementFlag = random.choice([True, False])
-
         self.historyFlag = history
-
         if self.historyFlag:
             self.historyData = []
             self.historyTestData = []
 
 
-    def preProcess(self,data):
-        data1 = np.divide(data-self.data_mean,self.data_std)
+    def preProcess(self,dataIn):
+        dataOut = np.divide(dataIn-self.data_mean,self.data_std)
         # data_temp = data[:,:-1]
         # data_vec = data_temp.flatten('F');
         # rew = data[0,-1]
         # data_vec = np.append(data_vec,rew)
-        return data1
+        return dataOut
     
     def computeReward(self,rhoOmegaDiff):
         reward = (1-rhoOmegaDiff)
@@ -57,19 +59,20 @@ class commEnv:
     def reset(self):
         self.countSteps = 0 
         self.otherActionIndex = random.choice(list(self.otherActionDict.keys()))
-        stRaw = random.choice(self.dict[str(random.choice(self.actionDict))+'+'+str(self.otherActionDict[self.otherActionIndex])])
-        stNormalized = self.preProcess(np.asarray(stRaw[0:self.dimState]))
+        ##randomly select a  [node1RxPackets[k],otherRxPackets[k],cw1List[i],reward[k]] from sample size number of them
+        stateRaw = random.choice(self.dict[str(random.choice(self.actionDict))+'+'+str(self.otherActionDict[self.otherActionIndex])])
+        stateNormalized = self.preProcess(np.asarray(stateRaw[0:self.dimState]))
 
         if self.historyFlag:
-            self.historyData = np.tile(stNormalized,self.historyFlag)
-            st = np.concatenate([stNormalized,self.historyData],axis=0)
+            self.historyData = np.tile(stateNormalized, self.historyFlag)
+            state = np.concatenate([stateNormalized, self.historyData], axis=0)
 
             # Test Data
             for i in range(self.numTestMethod):
                 self.historyTestData.append(self.historyData)
         else:
-            st = stNormalized
-        return st
+            state = stateNormalized
+        return state
      
     def step(self,a):
         self.countSteps+=1

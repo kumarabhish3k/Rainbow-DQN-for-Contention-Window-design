@@ -20,20 +20,28 @@ from envBuilder import *
 import argparse
 from pathlib import Path
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--n", type=np.int32, help="Number of nodes")
-parser.add_argument("--ps", type=np.float32, help="Transition Probability")
-parser.add_argument("--transitionModel", type=str, help="Transition Model")
-parser.add_argument("--history", type=np.int32, help="History Level")
-args = parser.parse_args()
+#parser = argparse.ArgumentParser()
+#parser.add_argument("--n", type=np.int32, help="Number of nodes")
+#parser.add_argument("--ps", type=np.float32, help="Transition Probability")
+#parser.add_argument("--transitionModel", type=str, help="Transition Model")
+#parser.add_argument("--history", type=np.int32, help="History Level")
+#args = parser.parse_args()
 
-n = args.n
-ps = args.ps
-transitionModel = args.transitionModel
-history = args.history
+# n = args.n
+# ps = args.ps
+# transitionModel = args.transitionModel
+# history = args.history
+
+n = 5
+ps = 1
+transitionModel = 'Markovian'
+history = 0
+
 
 env = envBuilder(n,ps,transitionModel,history)
-num_input = len(env.reset())
+
+
+num_input = len(env.reset()) ##state dimension
 print('Input Dimension = ',num_input)
 num_action = len(list(env.actionDict.keys()))
 # print('num_action',num_action)

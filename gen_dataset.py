@@ -5,6 +5,9 @@ import pdb
 
 
 def genDataset(n):
+    '''
+    output (data_dict) a dictionary
+    '''
     n = n
 
     # For computing reward

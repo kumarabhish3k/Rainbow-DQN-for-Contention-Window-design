@@ -78,9 +78,15 @@ episode_reward = 0
 state = env.reset()
 # print(state)
 for frame_idx in range(1, num_frames + 1):
+
     action = current_model.act(state)
-#       print('action = ',action) 
+#       print('action = ',action)
+
     next_state, reward, done, _= env.step(action)
+    print("frame_idx: "+str(frame_idx))
+    print("state: " + str(state) )
+    print("action: " + str(env.actionDict[action]))
+    print("reward: "+str(reward))
     replay_buffer.push(state, action, reward, next_state, done)
     
     #print(reward)
